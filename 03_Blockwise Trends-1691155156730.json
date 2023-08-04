@@ -1,0 +1,1299 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 13,
+  "links": [
+    {
+      "icon": "external link",
+      "tags": [
+        "pct"
+      ],
+      "targetBlank": false,
+      "type": "dashboards"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "B01 INV01 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV02 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV03 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV04 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV01 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV02 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV03 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV04 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV01 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV02 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV03 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV04 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV01 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV02 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV03 Active Power Limit (kW)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV04 Active Power Limit (kW)",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_d Active Power (kW)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=~",
+              "value": "/^$Blocks$/"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*INV*./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "PAC"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_d Active Power Limit (kW)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=~",
+              "value": "/^$Blocks$/"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*INV*./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "PAC_LIMIT"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Active Power ",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:104",
+          "format": "none",
+          "label": "Active power (kW)",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:105",
+          "format": "none",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 5,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "B01 INV01 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV02 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV03 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV04 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV01 Reactive  Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV02 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV03 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV04 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV01 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV02 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV03 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV04 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV01 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV02 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV03 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV04 Reactive Power Limit (kVAr)",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": " $tag_d.$tag_f",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "20s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "f"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=~",
+              "value": "/.*B*./"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*INV*./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "QAC_KVAR_LIMIT"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Reactive Power ",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:256",
+          "format": "none",
+          "label": "Reactive power (kVAr)",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:257",
+          "format": "none",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 6,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "B01 INV01 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV02 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV03 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV04 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV01 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV02 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV03 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV04 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV01 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV02 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV03 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV04 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV01 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV02 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV03 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV04 Frequency (Hz)",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": " $tag_d Power Factor",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=~",
+              "value": "/^$Blocks$/"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*INV*./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "ZE_PF"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_d Frequency (Hz)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=~",
+              "value": "/^$Blocks$/"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*INV*./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "ZE_FAC"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Power Factor VS Frequency",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": "Power Factor  ",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "format": "none",
+          "label": "Frequency (Hz)",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Phase Voltage (V)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 7,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "alias": "$tag_b $tag_d AC Voltage RY (V)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=~",
+              "value": "/^$Blocks$/"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*INV*./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "UAC12"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_b $tag_d AC Voltage YB (V)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=~",
+              "value": "/^$Blocks$/"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*INV*./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "UAC23"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_b $tag_d AC Voltage BR (V)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=~",
+              "value": "/^$Blocks$/"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*INV*./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "UAC31"
+            }
+          ]
+        }
+      ],
+      "title": "Phase Voltages ",
+      "transparent": true,
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [
+    "2_03",
+    "2_00",
+    "1_03"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "B01"
+          ],
+          "value": [
+            "B01"
+          ]
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Blocks",
+        "multi": true,
+        "name": "Blocks",
+        "options": [
+          {
+            "selected": true,
+            "text": "B01",
+            "value": "B01"
+          },
+          {
+            "selected": false,
+            "text": "B02",
+            "value": "B02"
+          },
+          {
+            "selected": false,
+            "text": "B03",
+            "value": "B03"
+          },
+          {
+            "selected": false,
+            "text": "B04",
+            "value": "B04"
+          }
+        ],
+        "query": "B01,B02,B03,B04",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now/d"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "03_Blockwise Trends",
+  "uid": "3g9YVHUZz",
+  "version": 9,
+  "weekStart": ""
+}

@@ -1,0 +1,4557 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 3.3,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      },
+      "id": 109,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 11,
+            "options": [
+              {
+                "highlightColor": "orange",
+                "label": "ON",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "OFF",
+                "type": "number",
+                "value": "0"
+              }
+            ],
+            "section": "",
+            "title": "F1_ON/OFF",
+            "tooltip": "",
+            "type": "radio",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 1,
+            "width": 8
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "light-blue",
+          "foregroundColor": "#ffffff",
+          "icon": "process",
+          "text": "Default",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.81:5000/scaback0001/setprop?id=13011&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-08-03T13:56:18.528Z\" agent=\"5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36\" etag=\"3hRyvMiMDWpVz5EkPTcZ\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">zVVdk5MwFP01POrQ4NLuo6WsPqjjbJ1Rn3ZSuIVo4GIIhfrrvZBQyHa7bmd8kAcg537k5iT3xAuionuneJV/xBSkx/y084KNx9jy9g29e+BogJuVb4BMidRAiwnYit9gwdGtESnUjqNGlFpULphgWUKiHYwrha3rtkfpzlrxDM6AbcLlOfpVpDo36IotJ/w9iCwfZ16Et8ZS8NHZrqTOeYrtLGsQe0GkELX5K7oIZM/dyIuJu7tgPRWmoNQvCQiYiThw2djFeSyUFLveI6XoOZSoBkv4q+nLWnss8IdnDvm1Plp6RrBP8KoeNu8tObBV1Q2uU1CY2e8woXgyy2V/W+DzIf6eJ671iyjo7DD/E7T0vseCl5fn2F1ZU/NC/7s43sT35Lx4GENpk5rH6QjbPYGZlf+/bEQSa0gfPiBWFPEZW1D0jahChf3p24LWoryWs+wfMUWw+Ksrc4piCpsyhb5pfDK3udCwrQyXLUkcYbkuJI0W/VYIKaNT2wQph9U+Ibym5f+EmSVMVrDb90tTPBXUsjPbEngI/qmWeUvbLj+A0tA91g7SXMACtDqSi7UGJsCqLfOt+LRz7bJYPtOtUZW5lcvslHhSFPqxonJBYIIzLiElMbVDVDrHDEsu4wldu2xPPsOBMhz/oCN0tDcDbzS6OwCd0N/68Nc3dvR9Ztl0NvMwONrBRZ5rbJTtmpNeaq4y0C7Wr+vZ3VAguRYH9xK5glwaTjfDYJtdr0H8Bw==</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_37",
+      "gridPos": {
+        "h": 3.3,
+        "w": 8,
+        "x": 4,
+        "y": 0
+      },
+      "id": 37,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "myRule",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": ".*",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "short",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 3.3,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      "id": 110,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 11,
+            "options": [
+              {
+                "label": "ON",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "OFF",
+                "type": "number",
+                "value": "0"
+              }
+            ],
+            "section": "",
+            "title": "F2_ON/OFF",
+            "tooltip": "",
+            "type": "radio",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 1,
+            "width": 8
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "light-blue",
+          "foregroundColor": "#ffffff",
+          "icon": "process",
+          "text": "Default",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.81:5000/scaback0001/setprop?id=14011&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-07-26T07:06:17.052Z\" agent=\"5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36\" etag=\"ndrraSOmQHuw7Z36FxNO\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">1VXfk5MwEP5reNSh4a7tPVrK6YM6ztUZ9ekmJVuIBhZDKNS/3qUJhbT2vJvxRR4g++0Pdr+QjyCKi+6t5lX+AQWogIWiC6J1wNji7obuPXCwwO0ytECmpbDQbAQ28hc4cAhrpIDaCzSIysjKB1MsS0iNh3GtsfXDdqj8t1Y8gwtgk3J1iX6RwuQWXbLFiL8DmeXDm2fzO+sp+BDsJqlzLrCdVI2SIIo1orGrootB9dwNvNi8+yveU2MaSvOchIjZjD1XjRsuYHNFuasdUgnq0Bzc2POfDQ6OV/VxU95QAFtWtK+r0U+rzD2fLjRdhTue+t7PsqA9ZuFHaOn+gAUvvYQUFeqzelF4vK73sv1rI35888z4+yRZJw89G49DKpHenJcjbPsHzDL0/7MWK6xBPL5HrCjjE7ag6RnTJBr7r24Dxsjypdxm/4jRC5h5DTCNTSmgPxghudtcGthUlt+WZIyw3BSKrFm/PVKp+MRlJDgsdynhNY36AyaeebqE7a4fQ3Mh6VhOfAvgcwhPvUyPrTvJe9AGunN9IF0FLMDoA4U4b2QTnKKy0AlMO9Unh+UTbRqUlztJzE6FR9WghROOKyISXXAJggTTmahNjhmWXCUjuvLZHmOOH4/l+Dt9Lgen/rwx6O8AdNJ87dNf3zrr28Sz7lzlo3FwxlWea2y0O0knTTRcZ2B8rJ/ryd3QoLiRe/9H8QJyyRzV/+ib/EKj5Dc=</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_111",
+      "gridPos": {
+        "h": 3.3,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "id": 111,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "myRule",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": ".*",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "short",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 6.2,
+        "w": 6,
+        "x": 0,
+        "y": 3.3
+      },
+      "id": 2,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "tagName13052",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "2500",
+                "type": "number",
+                "value": 2500
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "B01_INV_PEAK_PAC",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 2500,
+            "width": 0
+          },
+          {
+            "id": "tagName13054",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "2500",
+                "type": "number",
+                "value": 2500
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "B02_INV_PEAK_PAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 2500
+          },
+          {
+            "id": "tagName13084",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "1500",
+                "type": "number",
+                "value": 1500
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "B01_INV_PEAK_QAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 1500
+          },
+          {
+            "id": "tagName13086",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "1500",
+                "type": "number",
+                "value": 1500
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "B02_INV_PEAK_QAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 1500
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "single"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "title": "INV_PEAK POWER",
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 6.2,
+        "w": 6,
+        "x": 6,
+        "y": 3.3
+      },
+      "id": 92,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "tagName13002",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "12500",
+                "type": "number",
+                "value": 12500
+              },
+              {
+                "label": "15000",
+                "type": "number",
+                "value": 15000
+              },
+              {
+                "label": "10000",
+                "type": "number",
+                "value": 10000
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "ICR1_INV_PEAK_PAC",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 12500,
+            "width": 0
+          },
+          {
+            "id": "tagName13004",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "12500",
+                "type": "number",
+                "value": 12500
+              },
+              {
+                "label": "15000",
+                "type": "number",
+                "value": "15000"
+              },
+              {
+                "label": "10000",
+                "type": "number",
+                "value": "10000"
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "ICR2_INV_PEAK_PAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 12500
+          },
+          {
+            "id": "tagName13006",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "7500",
+                "type": "number",
+                "value": 7500
+              },
+              {
+                "label": "6000",
+                "type": "number",
+                "value": 6000
+              },
+              {
+                "label": "9000",
+                "type": "number",
+                "value": 9000
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "ICR1_INV_PEAK_QAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 7500
+          },
+          {
+            "id": "tagName13008",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "7500",
+                "type": "number",
+                "value": 7500
+              },
+              {
+                "label": "9000",
+                "type": "number",
+                "value": 9000
+              },
+              {
+                "label": "6000",
+                "type": "number",
+                "value": 6000
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "ICR2_INV_PEAK_QAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 7500
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "single"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "title": "ICR_PEAK_POWER",
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 6.2,
+        "w": 6,
+        "x": 12,
+        "y": 3.3
+      },
+      "id": 93,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "tagName14052",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "2500",
+                "type": "number",
+                "value": 2500
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "B03_INV_PEAK_PAC",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 2500,
+            "width": 0
+          },
+          {
+            "id": "tagName14054",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "2500",
+                "type": "number",
+                "value": 2500
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "B04_INV_PEAK_PAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 2500
+          },
+          {
+            "id": "tagName14084",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "1500",
+                "type": "number",
+                "value": 1500
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "B03_INV_PEAK_QAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 1500
+          },
+          {
+            "id": "tagName14086",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "1500",
+                "type": "number",
+                "value": 1500
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "B04_INV_PEAK_QAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 1500
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "single"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "title": "INV_PEAK_POWER",
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 6.2,
+        "w": 6,
+        "x": 18,
+        "y": 3.3
+      },
+      "id": 94,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "tagName14002",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "12500",
+                "type": "number",
+                "value": 12500
+              },
+              {
+                "label": "15000",
+                "type": "number",
+                "value": 15000
+              },
+              {
+                "label": "10000",
+                "type": "number",
+                "value": 10000
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "ICR3_INV_PEAK_PAC",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 15000,
+            "width": 0
+          },
+          {
+            "id": "tagName14004",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "12500",
+                "type": "number",
+                "value": 12500
+              },
+              {
+                "label": "15000",
+                "type": "number",
+                "value": "15000"
+              },
+              {
+                "label": "10000",
+                "type": "number",
+                "value": "10000"
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "ICR4_INV_PEAK_PAC",
+            "tooltip": "",
+            "type": "select",
+            "value": "10000"
+          },
+          {
+            "id": "tagName14006",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "10000",
+                "type": "number",
+                "value": 10000
+              },
+              {
+                "label": "7500",
+                "type": "number",
+                "value": 7500
+              },
+              {
+                "label": "5000",
+                "type": "number",
+                "value": 5000
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "ICR3_INV_PEAK_QAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 10000
+          },
+          {
+            "id": "tagName14008",
+            "labelWidth": 17,
+            "options": [
+              {
+                "label": "5000",
+                "type": "number",
+                "value": 5000
+              },
+              {
+                "label": "10000",
+                "type": "number",
+                "value": 10000
+              },
+              {
+                "label": "7500",
+                "type": "number",
+                "value": 7500
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "ICR4_INV_PEAK_QAC",
+            "tooltip": "",
+            "type": "select",
+            "value": 5000
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "single"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "title": "ICR_PEAK_ POWER",
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ix-lCK3Vz"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-08-03T13:36:44.631Z\" agent=\"5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36\" etag=\"l8KTVlkNTsJdBIqESuKW\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">lVTbcpswEP0aHtPBqAbnsSbuZSa1M7Fn2j7KsAa1gqWyMLhf38USF8V1JuVBaM9epD27K4/FRftJ8Sr/iilIL/DT1mMPXhBE9+9p7YCzAeYL3wCZEqmBZiOwFX/Agr1ZLVI4OoYaUWpRuWCCZQmJdjCuFDau2QGle2rFM7gCtgmX1+g3kercoIsgGvHPILK8P3kW3htNwXtjm8kx5yk2k6hs5bFYIWqzK9oYZMddz4vx+3hDO1xMQanf4sAC43HisrbJeUEoyXd5QApBN9Rnm3b4u8ZecXe8FOUDGTC/orouR33HKE9cn50oqGCBv4aG1mcseOk4JChROR5ewPzLN4XCzP4vN9z/83rX9k93ZBhv1rvnzSPttqsdrU+bL+vdtg9FDO1fhifMcNDDgXNeoLAuU+iI9End5ELDtjKJN9T2hOW6kCTNOtKElPGQJEs5LA4J4Uet8BdMNGGygP2BNJniqaAyTnQR8BD84S7TMtvKn0BpaF/2E80hYAFancnEapntQDuCw2w1Y0NHkcXySTPPLcbtDGVD5LHNaGM77UbXsSsyIaUJsyIqnWOGJZerEV26dI82j4iVJfknaH22zwWvNbolgFbo7537u7mVfkw0D62NfBHOVrhJ9BFrZXt8GCLNVQbaxbq8Xi2HAsm1OLkvy3+QS+L4XFx0kzeXrf4C</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_58",
+      "gridPos": {
+        "h": 1.6,
+        "w": 5.3,
+        "x": 0,
+        "y": 9.5
+      },
+      "id": 58,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "myRule",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": ".*",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "short",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ix-lCK3Vz"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-07-25T11:11:34.792Z\" agent=\"5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36\" etag=\"8LmjTBfllKCuE73uIciB\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">lVTbkpswDP0aHrdDTEOyjw2bXma2SbvJTNtHBxRwaxB1TCD9+gpsLt5sdloejHV0sXUk2QuivPmgeJl9xgSkx/yk8YIHj7HF/VtaW+BigPnSN0CqRGKg2QjsxB+wYG9WiQROjqFGlFqULhhjUUCsHYwrhbVrdkTpnlryFK6AXczlNfpNJDoz6JItRvwjiDTrT56F90aT897YZnLKeIL1JGqw9oJIIWqzy5sIZMtdz4vxe39DO1xMQaH/xSFgxuPMZWWT81goyXd1RApBN9QXm3b4u8JecXfqivKODNiypLquRn3LKI9dn73IqWDM30BN6xPmvHAcYpSoHA+PBX73TaEwtf/uhocXr3dt//WODKPtZv+0faTdbr2n9cv202a/60MRQ4fn4QkzHPQwc85jCqsigZZIn9R1JjTsSpN4TW1PWKZzSdKsJU1IGQ1JBgmH5TEm/KQV/oKJJoyXcDiSJlU8EVTGiW4BPAR/uMu0zLbyZ1Aamuf9RHMImINWFzKx2tB2oB3BYbbqsaFD32LZpJnnFuN2htIh8thmtLGddqPrgisyIaEJsyIqnWGKBZfrEV25dI82j4ilJfknaH2xzwWvNLolgEbo7637m7mVfkw0D42N3AkXK9wk+oSVsj0+DJHmKgXtYm1er5ZDgeRanN2X5T/IJXF8Ljrd5M0N1n8B</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_96",
+      "gridPos": {
+        "h": 1.6,
+        "w": 5.3,
+        "x": 5.3,
+        "y": 9.5
+      },
+      "id": 96,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "myRule",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": ".*",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "short",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ix-lCK3Vz"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-07-25T11:16:50.098Z\" agent=\"5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36\" etag=\"a15LEFE-1XzP-8oiExP6\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">lVTbkpswDP0aHrdDTEPYxyabXma2Sbtkp+2jAwq4NYgaE6BfXxHMxZum0+aBWOdItnUk2fE2WfNO8SL9iDFIh7lx43gPDmOr+9f07YC2B5aB2wOJEnEPLSYgFL/AgINbJWIoLUeNKLUobDDCPIdIWxhXCmvb7YTSPrXgCVwBYcTlNfpFxDrt0YCtJvw9iCQdTl749z2T8cHZZFKmPMZ6tqu3dbyNQtT9Kms2IDvtBl36uLc32PFiCnL9LwEe6yPOXFYmOYf5kmLXJ6Qt6Ia6NWn7PysciLvyUpQ35MCCguq6nvhOUR7ZMQeRUcGYu4Oavk+Y8dwKiFCisiIc5rmX3xzyE/N/ueHxj9e79v9M+T/fkfNmvzs87R9pFW4P9P20/7A7hMN25HV8eQRhvQ4DzKwzmcIqj6ET0yW6ToWGsOiTr6n1CUt1JsladMIJKTdjol7MIThFhJda4Q+YMX4UwPFETKJ4LKiUM24F3Ad3vMu81Kb6Z1Aampc9RbMImIFWLbkY1jddaMZwnK96amrfNVg6a+ilwbiZo2TceWo1Wphuu9F53pWYENOUGROVTjHBnMvthK5tuSefR8TCiPwdtG7Nk8ErjXYJoBH6axf+ammsbzPmoTE7X4zWGDeFLrFSps/HQdJcJaBtrMvrr+VQILkWZ/t1+Q9xyZyejAs3e3e97W8=</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_98",
+      "gridPos": {
+        "h": 1.6,
+        "w": 5.3,
+        "x": 10.6,
+        "y": 9.5
+      },
+      "id": 98,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "myRule",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": ".*",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "short",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ix-lCK3Vz"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-07-25T11:21:00.937Z\" agent=\"5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36\" etag=\"_pUKyMLeC_40XNjklkmz\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">lVRNk5swDP01HLdDTEPYY8Nm285skzbJzLZHBxRwaxB1TCD99RVgPrxpdrY5EOs9ybaeJDtemNUfFS/SLxiDdJgb14734DC2uH9P3wa4dMA8cDsgUSLuoNkI7MQfMGDvVooYTpajRpRaFDYYYZ5DpC2MK4WV7XZEaZ9a8ASugF3E5TX6LGKddmjAFiP+CUSS9ifP/PuOyXjvbDI5pTzGarKrt3K8UCHqbpXVIchGu16XLu7xBjtcTEGu3xLgsS7izGVpknOYLyl2eUTagm6oLyZt/3eJPXF3aovygRxYUFBdlyPfKMojO2YvMioYc9dQ0XeLGc+tgAglKivCYZ7b/qaQn5j/9oaHf17v2v9xu/p2R77hZr3fbp5otVvt6ft183m93/W7kUiHlycQ1snQw8w6kiks8xgaLV2iq1Ro2BVd7hV1PmGpziRZs0Y3IWU45OnFHIJjRPhJK/wFE8aPAjgciUkUjwVVcsItgPvgDneZVtoU/wxKQ/2ypWgUATPQ6kIuhvVNE5opHMarGnvadw2WTvp5bjBuxigZdh47jRam2W40nnclJsQ0ZMZEpVNMMOdyNaJLW+7R5wmxMCL/BK0v5sXgpUa7BFAL/b0Jfzc31o8J81CbnVvjYoybQp+wVKbNhznSXCWgbazJ69VyKJBci7P9uPyHuGSOL0bLTZ5db/UX</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_100",
+      "gridPos": {
+        "h": 1.6,
+        "w": 4,
+        "x": 16,
+        "y": 9.5
+      },
+      "id": 100,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "myRule",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": ".*",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "short",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ix-lCK3Vz"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-07-25T11:58:49.907Z\" agent=\"5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36\" etag=\"N7n9mkP3lgfIHsBM8YPF\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">lVTbcpswEP0aHtPBUGPnsSZO25nUzgTPNH2UYQ1qBUuFMNCv72KJi+K60/IgtGcv0p7dleOHeftRsjL7ggkIx3OT1vEfHM9b3b+ntQc6DSzXrgZSyRMNLSYg4r/AgINZzROoLEOFKBQvbTDGooBYWRiTEhvb7ITCPrVkKVwBUczENfqVJyrT6NpbTfgn4Gk2nLwI7rUmZ4OxyaTKWILNLKq/dfxQIiq9y9sQRM/dwIv2e7yhHS8moVD/4uB72uPMRG2Sc7xAkO/mhBSCbqg6k3bws8ZBcVddivKBDHy3pLpuJn3PKIttnwPPqWCeu4OG1hfMWWE5xChQWh6O57uXbw4Fqflfbnj84/Wu7Z8f78gy3O8OL/sn2kXbA63P+8+7QzTEIoqOb+MTpkkYYM860JNYFwn0TLqkbjKuICp15g31PWGZygVJi541LkQ4ZuknDNanmPBKSfwBM00Qr+F4Ik0qWcKpjjPdClgA7niXeZ1N6c8gFbRvG4oGETAHJTsyMdrAtKCZwXG4mqmjl67Bslk3Lw3GzBClY+Spz2hjWu1G2/lXZEJCI2ZElCrDFAsmthO6semebJ4QS0Pyd1CqM+8FqxXaJYCWq9fe/d3SSN9mmofWRL4InRFuEl1hLU2Tj1OkmExB2Vif11/LIUEwxc/20/If5JI4vRcX3ezR9be/AQ==</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_102",
+      "gridPos": {
+        "h": 1.6,
+        "w": 4,
+        "x": 20,
+        "y": 9.5
+      },
+      "id": 102,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "myRule",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": ".*",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "short",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 3.3,
+        "w": 5.3,
+        "x": 0,
+        "y": 11.1
+      },
+      "id": 104,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 11,
+            "options": [
+              {
+                "label": "ON",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "OFF",
+                "type": "number",
+                "value": "0"
+              }
+            ],
+            "section": "",
+            "title": "PAC_ON/OFF",
+            "tooltip": "",
+            "type": "radio",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 1,
+            "width": 8
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 0,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "light-blue",
+          "foregroundColor": "#ffffff",
+          "icon": "process",
+          "text": "Default",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.81:5000/scaback0001/setprop?id=13056&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 3.3,
+        "w": 5.3,
+        "x": 5.3,
+        "y": 11.1
+      },
+      "id": 105,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 11,
+            "options": [
+              {
+                "label": "ON",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "OFF",
+                "type": "number",
+                "value": "0"
+              }
+            ],
+            "section": "",
+            "title": "QAC_ON/OFF",
+            "tooltip": "",
+            "type": "radio",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": "0",
+            "width": 8
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "light-blue",
+          "foregroundColor": "#ffffff",
+          "icon": "process",
+          "text": "Default",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.81:5000/scaback0001/setprop?id=13088&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 3.3,
+        "w": 5.3,
+        "x": 10.6,
+        "y": 11.1
+      },
+      "id": 106,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 11,
+            "options": [
+              {
+                "label": "ON",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "OFF",
+                "type": "number",
+                "value": "0"
+              }
+            ],
+            "section": "",
+            "title": "UAC_ON/OFF",
+            "tooltip": "",
+            "type": "radio",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": "0",
+            "width": 8
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "light-blue",
+          "foregroundColor": "#ffffff",
+          "icon": "process",
+          "text": "Default",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.81:5000/scaback0001/setprop?id=13128&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 3.3,
+        "w": 4,
+        "x": 16,
+        "y": 11.1
+      },
+      "id": 107,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 11,
+            "options": [
+              {
+                "label": "ON",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "OFF",
+                "type": "number",
+                "value": "0"
+              }
+            ],
+            "section": "",
+            "title": "FAC_ON/OFF",
+            "tooltip": "",
+            "type": "radio",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": "0",
+            "width": 8
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "light-blue",
+          "foregroundColor": "#ffffff",
+          "icon": "process",
+          "text": "Default",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.81:5000/scaback0001/setprop?id=13028&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 3.3,
+        "w": 4,
+        "x": 20,
+        "y": 11.1
+      },
+      "id": 108,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 9,
+            "options": [
+              {
+                "label": "ON",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "OFF",
+                "type": "number",
+                "value": "0"
+              }
+            ],
+            "section": "",
+            "title": "PF_ON/OFF",
+            "tooltip": "",
+            "type": "radio",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": "0",
+            "width": 2
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "light-blue",
+          "foregroundColor": "#ffffff",
+          "icon": "process",
+          "text": "Default",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.81:5000/scaback0001/setprop?id=13069&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 3.6,
+        "x": 0,
+        "y": 14.399999999999999
+      },
+      "id": 95,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "tagName13062",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": ".5",
+                "type": "number",
+                "value": 0.5
+              },
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "1.5",
+                "type": "number",
+                "value": 1.5
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Up/low limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 1.5,
+            "width": 8
+          },
+          {
+            "id": "tagName13038",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Critical_limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          },
+          {
+            "id": "tagName13042",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "6",
+                "type": "number",
+                "value": 6
+              },
+              {
+                "label": "7",
+                "type": "number",
+                "value": 7
+              },
+              {
+                "label": "8",
+                "type": "number",
+                "value": 8
+              },
+              {
+                "label": "9",
+                "type": "number",
+                "value": 9
+              },
+              {
+                "label": "10",
+                "type": "number",
+                "value": "10"
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "GainReductionFactor%",
+            "tooltip": "",
+            "type": "select",
+            "unit": "",
+            "value": 3,
+            "width": 8
+          },
+          {
+            "id": "tagName13060",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Tune Step (%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          },
+          {
+            "id": "tagName13044",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Incremental(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          },
+          {
+            "id": "tagName13040",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Decremental(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 0,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "light-blue",
+          "foregroundColor": "#ffffff",
+          "icon": "process",
+          "text": "Default",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 1.7,
+        "x": 3.6,
+        "y": 14.399999999999999
+      },
+      "id": 112,
+      "options": {
+        "buttonGroup": {
+          "orientation": "left",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "tagName13062",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 2,
+            "width": 7
+          },
+          {
+            "id": "tagName13038",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": 4,
+            "width": 7
+          },
+          {
+            "id": "tagName13042",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": 5,
+            "width": 7
+          },
+          {
+            "id": "tagName13060",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": 3,
+            "width": 7
+          },
+          {
+            "id": "tagName13044",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": 3,
+            "width": 7
+          },
+          {
+            "id": "tagName13040",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": 5,
+            "width": 7
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 0,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "light-blue",
+          "foregroundColor": "#ffffff",
+          "icon": "process",
+          "text": "Default",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Default!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 3.6,
+        "x": 5.3,
+        "y": 14.399999999999999
+      },
+      "id": 97,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "tagName13102",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "0.5",
+                "type": "number",
+                "value": 0.5
+              },
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "1.5",
+                "type": "number",
+                "value": 1.5
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Upper/lower limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 1.5,
+            "width": 8
+          },
+          {
+            "id": "tagName13076",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Critical_limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          },
+          {
+            "id": "tagName13080",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "6",
+                "type": "number",
+                "value": 6
+              },
+              {
+                "label": "7",
+                "type": "number",
+                "value": 7
+              },
+              {
+                "label": "8",
+                "type": "number",
+                "value": 8
+              },
+              {
+                "label": "9",
+                "type": "number",
+                "value": 9
+              },
+              {
+                "label": "10",
+                "type": "number",
+                "value": "10"
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "GainReductionFactor%",
+            "tooltip": "",
+            "type": "select",
+            "value": "10",
+            "width": 8
+          },
+          {
+            "id": "tagName13082",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Tune Step (%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          },
+          {
+            "id": "tagName13078",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Incremental(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          },
+          {
+            "id": "tagName13100",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Decremental(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 1.7,
+        "x": 8.9,
+        "y": 14.399999999999999
+      },
+      "id": 113,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "tagName13102",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "0.5",
+                "type": "number",
+                "value": 0.5
+              },
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "1.5",
+                "type": "number",
+                "value": 1.5
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13076",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13080",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "6",
+                "type": "number",
+                "value": 6
+              },
+              {
+                "label": "7",
+                "type": "number",
+                "value": 7
+              },
+              {
+                "label": "8",
+                "type": "number",
+                "value": 8
+              },
+              {
+                "label": "9",
+                "type": "number",
+                "value": 9
+              },
+              {
+                "label": "10",
+                "type": "number",
+                "value": "10"
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13082",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13078",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13100",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Default!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 3.6,
+        "x": 10.6,
+        "y": 14.399999999999999
+      },
+      "id": 99,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "tagName13114",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "0.5",
+                "type": "number",
+                "value": 0.5
+              },
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "1.5",
+                "type": "number",
+                "value": 1.5
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Upper/lower limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 0.5,
+            "width": 8
+          },
+          {
+            "id": "tagName13104",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Critical_limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          },
+          {
+            "id": "tagName13106",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "6",
+                "type": "number",
+                "value": 6
+              },
+              {
+                "label": "7",
+                "type": "number",
+                "value": 7
+              },
+              {
+                "label": "8",
+                "type": "number",
+                "value": 8
+              },
+              {
+                "label": "9",
+                "type": "number",
+                "value": 9
+              },
+              {
+                "label": "10",
+                "type": "number",
+                "value": "10"
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "GainReductionFactor%",
+            "tooltip": "",
+            "type": "select",
+            "value": 5,
+            "width": 8
+          },
+          {
+            "id": "tagName13108",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Tune Step (%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          },
+          {
+            "id": "tagName13110",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Incremental(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          },
+          {
+            "id": "tagName13112",
+            "labelWidth": 18,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Decremental(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 8
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 1.7,
+        "x": 14.2,
+        "y": 14.399999999999999
+      },
+      "id": 114,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "tagName13114",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "0.5",
+                "type": "number",
+                "value": 0.5
+              },
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "1.5",
+                "type": "number",
+                "value": 1.5
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13104",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13106",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "6",
+                "type": "number",
+                "value": 6
+              },
+              {
+                "label": "7",
+                "type": "number",
+                "value": 7
+              },
+              {
+                "label": "8",
+                "type": "number",
+                "value": 8
+              },
+              {
+                "label": "9",
+                "type": "number",
+                "value": 9
+              },
+              {
+                "label": "10",
+                "type": "number",
+                "value": "10"
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13108",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13110",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          },
+          {
+            "id": "tagName13112",
+            "labelWidth": 1,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "",
+            "tooltip": "",
+            "type": "select",
+            "value": "",
+            "width": 7
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Default!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 4,
+        "x": 16,
+        "y": 14.399999999999999
+      },
+      "id": 101,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "tagName13034",
+            "labelWidth": 21,
+            "options": [
+              {
+                "label": "0.03",
+                "type": "number",
+                "value": 0.03
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Upper limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 0.03,
+            "width": 10
+          },
+          {
+            "id": "tagName13026",
+            "labelWidth": 21,
+            "options": [
+              {
+                "label": "0.30",
+                "type": "number",
+                "value": 0.3
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Lower limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 0.3,
+            "width": 10
+          },
+          {
+            "id": "tagName13022",
+            "labelWidth": 21,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "0",
+                "value": "0"
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Gain Reduction Factor(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": "0",
+            "width": 10
+          },
+          {
+            "id": "tagName13016",
+            "labelWidth": 21,
+            "options": [
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Critical_upper limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2,
+            "width": 10
+          },
+          {
+            "id": "tagName13014",
+            "labelWidth": 21,
+            "options": [
+              {
+                "label": "2.5",
+                "type": "number",
+                "value": 2.5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Critical_Lower limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 2.5,
+            "width": 10
+          },
+          {
+            "id": "tagName13020",
+            "labelWidth": 21,
+            "options": [
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Frequency Droop(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 3,
+            "width": 10
+          },
+          {
+            "id": "tagName13032",
+            "labelWidth": 21,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "100",
+                "type": "number",
+                "value": 100
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Tune Step (%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 100,
+            "width": 10
+          },
+          {
+            "id": "tagName13024",
+            "labelWidth": 21,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              }
+            ],
+            "section": "",
+            "title": "Incremental(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 1,
+            "width": 10
+          },
+          {
+            "id": "tagName13018",
+            "labelWidth": 21,
+            "options": [
+              {
+                "label": "1",
+                "type": "number",
+                "value": 1
+              },
+              {
+                "label": "2",
+                "type": "number",
+                "value": 2
+              },
+              {
+                "label": "3",
+                "type": "number",
+                "value": 3
+              },
+              {
+                "label": "4",
+                "type": "number",
+                "value": 4
+              },
+              {
+                "label": "5",
+                "type": "number",
+                "value": 5
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Decremental(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 1,
+            "width": 10
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 14.399999999999999
+      },
+      "id": 103,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "sm"
+        },
+        "elements": [
+          {
+            "id": "tagName13067",
+            "labelWidth": 13,
+            "options": [
+              {
+                "label": "0.004",
+                "type": "number",
+                "value": 0.004
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Upper limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "uid": "cb08bff8-547a-4761-97fc-19f97b14d779",
+            "value": 0.004,
+            "width": 10
+          },
+          {
+            "id": "tagName13073",
+            "labelWidth": 13,
+            "options": [
+              {
+                "label": "0.004",
+                "type": "number",
+                "value": 0.004
+              },
+              {
+                "label": "",
+                "value": ""
+              }
+            ],
+            "section": "",
+            "title": "Lower limit(%)",
+            "tooltip": "",
+            "type": "select",
+            "value": 0.004,
+            "width": 10
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "const password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    console.log(\"element.id:\", element.id);\n    return;\n\n\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n\n\n  /**\n   * Set URL for ID 13052 with custom tag name\n   */\n  var id = (element.id).slice(7, 12)\n  //const tagName13052 = options.tagNames && options.tagNames.id13052 ? options.tagNames.id13052 : \"val\";\n  const url = `http://192.168.84.81:5000/scaback0001/setprop?id=${id}&val=${element.value}`;\n  console.log(\"Updated URL for ID:\" + id, url);\n  /**\n   * Fetch for ID 13052\n   */\n  fetch(url, {\n    method: \"POST\",\n    /*headers: {\n      \"Content-Type\": \"application/json\",\n      \"PRIVATE-TOKEN\": \"$token\",\n    },\n    body: JSON.stringify(body),*/\n\n  })\n    .then((response) => {\n      if (response && response.ok) {\n        notifySuccess([\"Update\", \"Values updated successfully for ID 13052.\"]);\n        initialRequest();\n      } else {\n        notifyError([\n          \"Error\",\n          `An error occurred updating values for ID 13052: ${response ? response.status : 'Unknown'}`,\n        ]);\n      }\n    })\n    .catch((error) => {\n      console.error(error);\n      notifyError([\"Error\", \"An error occurred during the request for ID 13052.\"]);\n    })\n});\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    }
+  ],
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now/d"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Feeder_ON/OFF Control",
+  "uid": "7v3dI3j4z1231",
+  "version": 39,
+  "weekStart": ""
+}

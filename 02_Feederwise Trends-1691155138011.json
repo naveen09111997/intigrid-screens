@@ -1,0 +1,1212 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 12,
+  "links": [
+    {
+      "icon": "external link",
+      "tags": [
+        "pct"
+      ],
+      "type": "dashboards"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "-wB7l1dVk"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 10,
+        "x": 6,
+        "y": 0
+      },
+      "id": 9,
+      "links": [],
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "\n<p> <b> <font color=\"orange\"size=\"3\"> <center >EM01_ Plant </b></p>\n\n\n                                \n                               ",
+        "mode": "html"
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "-wB7l1dVk"
+          },
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "hiddenSeries": false,
+      "id": 5,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "EM01 Current (A)",
+          "yaxis": 2
+        },
+        {
+          "alias": "EM02 Current (A)",
+          "yaxis": 2
+        },
+        {
+          "alias": "EM03 Current (A)",
+          "yaxis": 2
+        },
+        {
+          "alias": "Radiation (W/m2)",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_d.$tag_f",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "f"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=",
+              "value": "CR"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "PAC"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*EM*./"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_d.$tag_f",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "f"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=",
+              "value": "CR"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "QAC"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*EM*./"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_d.$tag_f",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "f"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=",
+              "value": "CR"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "UAC"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*EM*./"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_d.$tag_f",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "f"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=",
+              "value": "CR"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "IAC"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*EM*./"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "AC Power / Reactive Power / Voltage / Current",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:48",
+          "format": "none",
+          "label": "AC Power (MW) / Reactive power (MVAr) / Voltage (kV)",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:49",
+          "format": "none",
+          "label": "Current (A) ",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "-wB7l1dVk"
+      },
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "hiddenSeries": false,
+      "id": 6,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "EM01 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "EM02 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "EM03 Frequency (Hz)",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_d Power Factor",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "-wB7l1dVk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "scaback_csv",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=",
+              "value": "CR"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/^$Feeders$/"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "PF"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_d Frequency (Hz)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "-wB7l1dVk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "scaback_csv",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=",
+              "value": "CR"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/^$Feeders$/"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "FAC"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Power Factor VS Frequency",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": "Power Factor  ",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "format": "none",
+          "label": "Frequency (Hz)",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "-wB7l1dVk"
+      },
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "hiddenSeries": false,
+      "id": 7,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "B01 INV01 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV02 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV03 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B01 INV04 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV01 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV02 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV03 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B02 INV04 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV01 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV02 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV03 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B03 INV04 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV01 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV02 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV03 Frequency (Hz)",
+          "yaxis": 2
+        },
+        {
+          "alias": "B04 INV04 Frequency (Hz)",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_d AC Voltage RY (kV)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "-wB7l1dVk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "scaback_csv",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=",
+              "value": "CR"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/^$Feeders$/"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "UAC12"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_d AC Voltage YB (kV)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "-wB7l1dVk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "scaback_csv",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=",
+              "value": "CR"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/^$Feeders$/"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "UAC23"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_d AC Voltage BR (kV)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "-wB7l1dVk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "5s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "b"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "scaback_csv",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "b",
+              "operator": "=",
+              "value": "CR"
+            },
+            {
+              "condition": "AND",
+              "key": "d",
+              "operator": "=~",
+              "value": "/^$Feeders$/"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "UAC31"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Phase Voltages ",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": "Phase Voltage (V)",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "format": "none",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    }
+  ],
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [
+    "2_04",
+    "2_00",
+    "1_03"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "EM01",
+          "value": "EM01"
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "Feeders",
+        "multi": true,
+        "name": "Feeders",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": true,
+            "text": "EM01",
+            "value": "EM01"
+          },
+          {
+            "selected": false,
+            "text": "EM02",
+            "value": "EM02"
+          }
+        ],
+        "query": "EM01,EM02",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now/d"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "02_Feederwise Trends",
+  "uid": "RgrfNH8Wk",
+  "version": 5,
+  "weekStart": ""
+}

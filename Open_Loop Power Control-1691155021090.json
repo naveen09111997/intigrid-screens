@@ -1,0 +1,2871 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 14,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "FEEDER - 1 - ON"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "FEEDER - 1 - OFF"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 49,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "alias": "FEEDER -1 - STATUS",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM01"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "COMMUNICATION_STATUS"
+            }
+          ]
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-07-22T12:39:31.666Z\" agent=\"5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36\" etag=\"0eyZmscSKQf-9D1mfIy-\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">5VhRk5MwEP41zOiLQ6Gl9PHaa70Hz1Grd+pbhC1EA1vTcFB/vaHZFOj1HGf0ykzLA5BvN8nm+3YnmTj+LKteS7ZObzEG4XhuXDn+teN548lQv2tga4BR6BogkTw20KABlvwXEGjdCh7DpuOoEIXi6y4YYZ5DpDoYkxLLrtsKRXfWNUvgEbCMmHiM3vNYpQYNvXGD3wBPUjvzIJgYS8asM61kk7IYy9ao/tzxZxJRmb+smoGoubO8mH6LJ6z7wCTk6m86DCmwByYKWpzjBUL3na5QD6HJYZExBD+LOqrpR55p7j33LZT6/QEzljfGHekCZaeH4/nu7mlDQVJ/313NXtzev7Rz6kDNtMZKHKmtJV5ikcdQx+5qc5lyBcu1CbDUmaaxVGVCtwb1ArgQs30wfswgXEUa3yiJP6BlCaIQvq1oyUuarR4hkSzmmsmW7xhYAO4+tjbTRP4DSAXVoaS6FAAzUHKrXaw1oCygMrBVUDY5NbApn7byaUQYozRO9iM3SusfEvu48HaMFrkQ6ySnJkqVYoI5E/MGnXbpb3zeIK6Jsu+g1JYqlhUKu5JAxdXnuvurEbW+tCzXFY28a2yp8STRGywk5eY+jxWTCaguVq/rj3JIEEzxh25x/xO5NhV6qqr3dVXdXckLrStv3GNdef1K/0lLf3ehuvthj7r7/eq+0LrffL1Q4YeTHoUf9nyCWlym5oHbo+ajI5r/R7YXu+cY25QFhu1j+DMcSwf+KakNzpnaw5PJaakdnzO1h5v/aakNz5naw+31tNQeu6E4G2oPd7HnpFY3m4ulna11O+fPfwM=</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_48",
+      "gridPos": {
+        "h": 4,
+        "w": 9,
+        "x": 3,
+        "y": 0
+      },
+      "id": 48,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "Copy of Active Power",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": "Active Power",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "55",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          },
+          {
+            "aggregation": "current",
+            "alias": "Copy of Reactive Power",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 2,
+            "overlayIcon": false,
+            "pattern": "Reactive Power",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "56",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          },
+          {
+            "aggregation": "current",
+            "alias": "Copy of Voltage",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 3,
+            "overlayIcon": false,
+            "pattern": "Voltage",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "57",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          },
+          {
+            "aggregation": "current",
+            "alias": "Power Factor",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 4,
+            "overlayIcon": false,
+            "pattern": "Power Factor",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "59",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          },
+          {
+            "aggregation": "current",
+            "alias": "Frequency",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 5,
+            "overlayIcon": false,
+            "pattern": "Frequency",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "58",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ix-lCK3Vz"
+          },
+          "hide": true,
+          "refId": "A"
+        },
+        {
+          "alias": "Active Power",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM01"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "PAC"
+            }
+          ]
+        },
+        {
+          "alias": "Reactive Power",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM01"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "QAC"
+            }
+          ]
+        },
+        {
+          "alias": "Voltage",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM01"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "UAC"
+            }
+          ]
+        },
+        {
+          "alias": "Frequency",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM01"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "FAC"
+            }
+          ]
+        },
+        {
+          "alias": "Power Factor",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM01"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "PF"
+            }
+          ]
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "FEEDER - 2 - ON"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "FEEDER - 2 - OFF"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 12,
+        "y": 0
+      },
+      "id": 46,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "alias": "FEEDER -2 - STATUS",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM02"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "COMMUNICATION_STATUS"
+            }
+          ]
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-07-22T12:39:31.666Z\" agent=\"5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36\" etag=\"0eyZmscSKQf-9D1mfIy-\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">5VhRk5MwEP41zOiLQ6Gl9PHaa70Hz1Grd+pbhC1EA1vTcFB/vaHZFOj1HGf0ykzLA5BvN8nm+3YnmTj+LKteS7ZObzEG4XhuXDn+teN548lQv2tga4BR6BogkTw20KABlvwXEGjdCh7DpuOoEIXi6y4YYZ5DpDoYkxLLrtsKRXfWNUvgEbCMmHiM3vNYpQYNvXGD3wBPUjvzIJgYS8asM61kk7IYy9ao/tzxZxJRmb+smoGoubO8mH6LJ6z7wCTk6m86DCmwByYKWpzjBUL3na5QD6HJYZExBD+LOqrpR55p7j33LZT6/QEzljfGHekCZaeH4/nu7mlDQVJ/313NXtzev7Rz6kDNtMZKHKmtJV5ikcdQx+5qc5lyBcu1CbDUmaaxVGVCtwb1ArgQs30wfswgXEUa3yiJP6BlCaIQvq1oyUuarR4hkSzmmsmW7xhYAO4+tjbTRP4DSAXVoaS6FAAzUHKrXaw1oCygMrBVUDY5NbApn7byaUQYozRO9iM3SusfEvu48HaMFrkQ6ySnJkqVYoI5E/MGnXbpb3zeIK6Jsu+g1JYqlhUKu5JAxdXnuvurEbW+tCzXFY28a2yp8STRGywk5eY+jxWTCaguVq/rj3JIEEzxh25x/xO5NhV6qqr3dVXdXckLrStv3GNdef1K/0lLf3ehuvthj7r7/eq+0LrffL1Q4YeTHoUf9nyCWlym5oHbo+ajI5r/R7YXu+cY25QFhu1j+DMcSwf+KakNzpnaw5PJaakdnzO1h5v/aakNz5naw+31tNQeu6E4G2oPd7HnpFY3m4ulna11O+fPfwM=</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_40",
+      "gridPos": {
+        "h": 4,
+        "w": 9,
+        "x": 15,
+        "y": 0
+      },
+      "id": 40,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "Reactive Power",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": "Reactive Power",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "56",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          },
+          {
+            "aggregation": "current",
+            "alias": "Voltage",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 2,
+            "overlayIcon": false,
+            "pattern": "Voltage",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "57",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          },
+          {
+            "aggregation": "current",
+            "alias": "Frequency",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 3,
+            "overlayIcon": false,
+            "pattern": "Frequency",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "58",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          },
+          {
+            "aggregation": "current",
+            "alias": "Power factor",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 4,
+            "overlayIcon": false,
+            "pattern": " Power factor",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "59",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          },
+          {
+            "aggregation": "current",
+            "alias": "Active Power",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 5,
+            "overlayIcon": false,
+            "pattern": "Active Power",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [
+              {
+                "hidden": false,
+                "pattern": "55",
+                "textOn": "wmd",
+                "textPattern": "/.*/",
+                "textReplace": "content"
+              }
+            ],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "none",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "alias": "Active Power",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM02"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "PAC"
+            }
+          ]
+        },
+        {
+          "alias": "Reactive Power",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM02"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "QAC"
+            }
+          ]
+        },
+        {
+          "alias": "Voltage",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM02"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "UAC"
+            }
+          ]
+        },
+        {
+          "alias": "Frequency",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM02"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "FAC"
+            }
+          ]
+        },
+        {
+          "alias": " Power factor",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=",
+              "value": "EM02"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "PF"
+            }
+          ]
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-07-22T09:31:02.342Z\" agent=\"5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36\" etag=\"_kQ1g8Cnu4R0uYAImxPH\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">jZTbctowEIafxpfpGBkMuQSHpJlJQwaY0l51hL3YamTLlWVs+vRdWfIpDJ1wYaRvD5J+7crxgrR+kjRPvokIuEPcqHa8B4eQ+f0UvxpcDJgtXANiySKDJj3Ysb9gYetWsgiKkaMSgiuWj2EosgxCNWJUSlGN3U6Cj1fNaQxXYBdSfk0PLFKJoQsy7/lXYHHSrjzx740lpa2zPUmR0EhUg6ze2vECKYQyo7QOgGvtWl1M3OMNa7cxCZn6TIBHTMSZ8tIeziE+x9jVSWAKrSEXsrH4f0q9rZVDPLf5DZFbqIuVp4U6wV3RXN4SHSbTvG5cB0EnGo5j9izFiyXuK1T43YqUZsMAP7b/zQ6PH0HZgmWwf/6+/vW2Oay3mCfYvO63mxcc3TlaEOONqnQBz9kZpAKJ5mWo2Blw8CaqBnCWMq2EpFmsuTmO+35oyg4z0DTHFNmxyM2pyMxYu2WuNorMyNtiMlKQSFFmEeg7wtVWVcIU7HKjVYUdhSxRKcfZROvMOA+6W/IiCotTiLxQUrzDwOKHCzie0BJLGjGskIFtDtQHt9vLsIJsUTUC1R9LFVscRApKXtDFWj0TYJubuLbWq2GrWJYM2mRqGbXdGXeJ+wLGga3hG/XsXWkJEfaunQqpEhGLjPJ1T1djtXufFyFyq/FvUOpiHyJa4q2PbgBqpn7o8C8zO/s5sDzUNnMzudjJTZ0LUUrbFV17KipjUGOmz/Xf25DAaVPKo+fv8+LitH+IGtvgNffW/wA=</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_29",
+      "gridPos": {
+        "h": 3,
+        "w": 13,
+        "x": 0,
+        "y": 4
+      },
+      "id": 29,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "myRule",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": ".*",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "short",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 11,
+        "x": 13,
+        "y": 4
+      },
+      "id": 44,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "$tag_d Active Power",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*EM./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "PAC"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_d Reactive Power",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "d"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "v",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "d",
+              "operator": "=~",
+              "value": "/.*EM./"
+            },
+            {
+              "condition": "AND",
+              "key": "f",
+              "operator": "=",
+              "value": "QAC"
+            }
+          ]
+        }
+      ],
+      "title": "Panel Title",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {},
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 7
+      },
+      "id": 7,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 8,
+            "section": "",
+            "title": "B01_INV",
+            "tooltip": "",
+            "type": "number",
+            "uid": "51d705ea-1917-48e0-9287-6dfbf20ff961",
+            "unit": "",
+            "value": "25000",
+            "width": 10
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.1.45:5000/scaback0001/setprop?id=13049&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": true,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": false
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 7
+      },
+      "id": 35,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 10,
+            "section": "",
+            "title": "B02_INV",
+            "tooltip": "",
+            "type": "number",
+            "uid": "3602ea52-1445-4619-adcb-f57498c5d3a0",
+            "value": "25000",
+            "width": 7
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.86:5000/scaback0001/setprop?id=13050&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 7
+      },
+      "id": 41,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 10,
+            "section": "",
+            "title": "B03_INV",
+            "tooltip": "",
+            "type": "number",
+            "uid": "3602ea52-1445-4619-adcb-f57498c5d3a0",
+            "value": "25000",
+            "width": 7
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.86:5000/scaback0001/setprop?id=14049&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 9,
+        "y": 7
+      },
+      "id": 42,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 10,
+            "section": "",
+            "title": "B04_INV",
+            "tooltip": "",
+            "type": "number",
+            "uid": "3602ea52-1445-4619-adcb-f57498c5d3a0",
+            "value": "25000",
+            "width": 7
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.86:5000/scaback0001/setprop?id=14050&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "flowchartsData": {
+        "flowcharts": [
+          {
+            "allowDrawio": false,
+            "center": true,
+            "csv": "## See more information for the syntax at https://drawio-app.com/import-from-csv-to-drawio/\n##\n## Example CSV. Use ## for comments and # for configuration.\n## The following names are reserved and should not be used (or ignored):\n## id, tooltip, placeholder(s), link and label (see below)\n##\n#\n## Node label with placeholders and HTML.\n## Default is '%name_of_first_column%'.\n#\n# label: %name%<br><i style=\"color:gray;\">%position%</i><br><a href=\"mailto:%email%\">Email</a>\n#\n## Node style (placeholders are replaced once).\n## Default is the current style for nodes.\n#\n# style: label;image=%image%;whiteSpace=wrap;html=1;rounded=1;fillColor=%fill%;strokeColor=%stroke%;\n#\n## Parent style for nodes with child nodes (placeholders are replaced once).\n#\n# parentstyle: swimlane;whiteSpace=wrap;html=1;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;\n#\n## Optional column name that contains a reference to a named style in styles.\n## Default is the current style for nodes.\n#\n# stylename: -\n#\n## JSON for named styles of the form {\"name\": \"style\", \"name\": \"style\"} where style is a cell style with\n## placeholders that are replaced once.\n#\n# styles: -\n#\n## Optional column name that contains a reference to a named label in labels.\n## Default is the current label.\n#\n# labelname: -\n#\n## JSON for named labels of the form {\"name\": \"label\", \"name\": \"label\"} where label is a cell label with\n## placeholders.\n#\n# labels: -\n#\n## Uses the given column name as the identity for cells (updates existing cells).\n## Default is no identity (empty value or -).\n#\n# identity: -\n#\n## Uses the given column name as the parent reference for cells. Default is no parent (empty or -).\n## The identity above is used for resolving the reference so it must be specified.\n#\n# parent: -\n#\n## Adds a prefix to the identity of cells to make sure they do not collide with existing cells (whose\n## IDs are numbers from 0..n, sometimes with a GUID prefix in the context of realtime collaboration).\n## Default is csvimport-.\n#\n# namespace: csvimport-\n#\n## Connections between rows (\"from\": source colum, \"to\": target column).\n## Label, style and invert are optional. Defaults are '', current style and false.\n## If placeholders are used in the style, they are replaced with data from the source.\n## An optional placeholders can be set to target to use data from the target instead.\n## In addition to label, an optional fromlabel and tolabel can be used to name the column\n## that contains the text for the label in the edges source or target (invert ignored).\n## The label is concatenated in the form fromlabel + label + tolabel if all are defined.\n## The target column may contain a comma-separated list of values.\n## Multiple connect entries are allowed.\n#\n# connect: {\"from\": \"manager\", \"to\": \"name\", \"invert\": true, \"label\": \"manages\", \\\n#          \"style\": \"curved=1;endArrow=blockThin;endFill=1;fontSize=11;\"}\n# connect: {\"from\": \"refs\", \"to\": \"id\", \"style\": \"curved=1;fontSize=11;\"}\n#\n## Node x-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# left: \n#\n## Node y-coordinate. Possible value is a column name. Default is empty. Layouts will\n## override this value.\n#\n# top: \n#\n## Node width. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the width. Default is auto.\n#\n# width: auto\n#\n## Node height. Possible value is a number (in px), auto or an @ sign followed by a column\n## name that contains the value for the height. Default is auto.\n#\n# height: auto\n#\n## Padding for autosize. Default is 0.\n#\n# padding: -12\n#\n## Comma-separated list of ignored columns for metadata. (These can be\n## used for connections and styles but will not be added as metadata.)\n#\n# ignore: id,image,fill,stroke,refs,manager\n#\n## Column to be renamed to link attribute (used as link).\n#\n# link: url\n#\n## Spacing between nodes. Default is 40.\n#\n# nodespacing: 40\n#\n## Spacing between levels of hierarchical layouts. Default is 100.\n#\n# levelspacing: 100\n#\n## Spacing between parallel edges. Default is 40. Use 0 to disable.\n#\n# edgespacing: 40\n#\n## Name or JSON of layout. Possible values are auto, none, verticaltree, horizontaltree,\n## verticalflow, horizontalflow, organic, circle or a JSON string as used in Layout, Apply.\n## Default is auto.\n#\n# layout: auto\n#\n## ---- CSV below this line. First line are column names. ----\nname,position,id,location,manager,email,fill,stroke,refs,url,image\nEvan Miller,CFO,emi,Office 1,,me@example.com,#dae8fc,#6c8ebf,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png\nEdward Morrison,Brand Manager,emo,Office 2,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png\nRon Donovan,System Admin,rdo,Office 3,Evan Miller,me@example.com,#d5e8d4,#82b366,\"emo,tva\",https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png\nTessa Valet,HR Director,tva,Office 4,Evan Miller,me@example.com,#d5e8d4,#82b366,,https://www.draw.io,https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png\n",
+            "download": false,
+            "editorTheme": "dark",
+            "editorUrl": "http://ivpn.iplon.co.in:48080",
+            "enableAnim": true,
+            "grid": false,
+            "lock": true,
+            "name": "Main",
+            "scale": true,
+            "tooltip": true,
+            "type": "xml",
+            "url": "http://<YourUrl>/<Your XML/drawio file/api>",
+            "xml": "<mxfile host=\"ivpn.iplon.co.in\" modified=\"2023-07-22T08:58:52.883Z\" agent=\"5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36\" etag=\"s7BYwETiBKi69bcXgEuR\" version=\"20.8.20\" type=\"embed\"><diagram id=\"3nDFKw7hyiI6C_ekbniq\" name=\"Page-1\">lZTbcpswEIafhst2sHCwcxkTephJ447tadqrjgJrUCsQFcLgPn0XJECyx53WF5j99oD070peEBXde0mr/JNIgXvETzsvePQIWd0v8dmDswZ3a1+DTLJUo8UM9uw3GDiGNSyF2glUQnDFKhcmoiwhUQ6jUorWDTsK7n61ohlcgX1C+TV9YanKNV2T1cw/AMvy8cuL8F57CjoGm53UOU1Fa1UNYi+IpBBKvxVdBLzXbtRF57274Z0WJqFU/5IQEJ1xorwxm/NIyDF3cxRYoteQCzl4wl9Nv6yNRwJ/+NnIr9XZyDPCvsCbemjeAwYsllU3hFpJR5q4OQdWYGOJ/wwtPneioKWdEGbmf1jh6yVoRrCLH6LDxy/x98/bl3iHlaLt82G3fRoDUZDmMhnZVUFkWoYRE2enRIqmTKHX0kd3mzMF+0rvqcXJR5argqO16PVgnEeTmkFKYX1MkNdKip9gecJkDa9H9GSSpgw7aflWQEPwp7XYnTbNP4FU0F2OFB5FEAUoecYQ4w10gjmExDcz2dojbVhujfPSMGpOUTYVngcNX8ys3Zi74EpLSPGMGVNIlYtMlJTHM924as8xT0JURuMfoNTZXBi0UcLtAHRMfe3T394Z65vleexM5cE4G+OmzrVopJne6RgpKjNQLuv39dduSOBUsZN7t/yHuGjOF8bgs27dIP4D</diagram></mxfile>",
+            "zoom": "100%"
+          }
+        ]
+      },
+      "format": "short",
+      "graphId": "flowchart_39",
+      "gridPos": {
+        "h": 3,
+        "w": 13,
+        "x": 0,
+        "y": 11
+      },
+      "id": 39,
+      "newFlag": false,
+      "rulesData": {
+        "rulesData": [
+          {
+            "aggregation": "current",
+            "alias": "myRule",
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "column": "Time",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "eventData": [],
+            "eventProp": "id",
+            "eventRegEx": false,
+            "gradient": false,
+            "hidden": false,
+            "invert": false,
+            "linkData": [],
+            "linkProp": "id",
+            "linkRegEx": true,
+            "mappingType": 1,
+            "metricType": "serie",
+            "order": 1,
+            "overlayIcon": false,
+            "pattern": ".*",
+            "rangeData": [],
+            "reduce": true,
+            "refId": "A",
+            "sanitize": false,
+            "shapeData": [],
+            "shapeProp": "id",
+            "shapeRegEx": true,
+            "stringThresholds": [
+              "/.*/",
+              "/.*/"
+            ],
+            "textData": [],
+            "textProp": "id",
+            "textRegEx": true,
+            "thresholds": [
+              50,
+              80
+            ],
+            "tooltip": false,
+            "tooltipColors": false,
+            "tooltipLabel": "",
+            "tooltipOn": "a",
+            "tpDirection": "v",
+            "tpGraph": false,
+            "tpGraphScale": "linear",
+            "tpGraphSize": "100%",
+            "tpGraphType": "line",
+            "type": "number",
+            "unit": "short",
+            "valueData": []
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "agenty-flowcharting-panel",
+      "valueName": "current",
+      "version": "0.9.0"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 14
+      },
+      "id": 33,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 10,
+            "section": "",
+            "title": "B01_INV",
+            "tooltip": "",
+            "type": "number",
+            "uid": "3602ea52-1445-4619-adcb-f57498c5d3a0",
+            "value": "15000",
+            "width": 10
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.86:5000/scaback0001/setprop?id=13095&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 14
+      },
+      "id": 38,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 10,
+            "section": "",
+            "title": "B02_INV",
+            "tooltip": "",
+            "type": "number",
+            "uid": "3602ea52-1445-4619-adcb-f57498c5d3a0",
+            "value": "15000",
+            "width": 10
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.86:5000/scaback0001/setprop?id=13096&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 14
+      },
+      "id": 37,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 10,
+            "section": "",
+            "title": "B03_INV",
+            "tooltip": "",
+            "type": "number",
+            "uid": "3602ea52-1445-4619-adcb-f57498c5d3a0",
+            "value": "15000",
+            "width": 10
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.86:5000/scaback0001/setprop?id=14095&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 9,
+        "y": 14
+      },
+      "id": 36,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "labelWidth": 10,
+            "section": "",
+            "title": "B04_INV",
+            "tooltip": "",
+            "type": "number",
+            "uid": "3602ea52-1445-4619-adcb-f57498c5d3a0",
+            "value": "15000",
+            "width": 10
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.86:5000/scaback0001/setprop?id=14096&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {},
+      "gridPos": {
+        "h": 1,
+        "w": 1,
+        "x": 0,
+        "y": 18
+      },
+      "id": 18,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const type = replaceVariables('${type}');\n\nif (type === 'Close') {\n  // API Call\n  const apiUrl = 'http://192.168.1.45:5000/scaback0001/setProp?id=13116&val=1';\n  fetch(apiUrl, {\n    method: 'GET', // Change this to the appropriate HTTP method if needed (e.g., POST, PUT, etc.)\n  })\n    .then(response => {\n      if (response.ok) {\n        // Handle the API call success if needed\n        console.log('API call successful!');\n      } else {\n        // Handle the API call error if needed\n        console.error('API call failed!');\n      }\n    })\n    .catch(error => {\n      // Handle any network-related errors\n      console.error('Network error:', error);\n    });\n\n  // Location Replacement\n  locationService.replace('/d/kQ5dh4q4z1/var-type=' + type);\n}\n\nreturn {};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas",
+        "themeEditor": {
+          "config": "{}",
+          "height": 400,
+          "name": "default"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": true,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "z6HMoi6Vk"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 2,
+        "y": 18
+      },
+      "id": 12,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "md"
+        },
+        "elements": [
+          {
+            "id": "val",
+            "options": [
+              {
+                "id": "162",
+                "label": "QAC",
+                "type": "number",
+                "value": 162
+              },
+              {
+                "id": "161",
+                "label": "PF",
+                "type": "number",
+                "value": 161
+              }
+            ],
+            "section": "",
+            "title": "REACTIVE POWER REF SELECT",
+            "tooltip": "",
+            "type": "select",
+            "uid": "fae5f9dd-26c2-4fa8-b91b-c6c7f8007d4b",
+            "value": 162,
+            "width": 10
+          }
+        ],
+        "initial": {
+          "code": "",
+          "contentType": "application/json",
+          "header": [],
+          "highlight": true,
+          "highlightColor": "dark-red",
+          "method": "GET"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 7,
+          "sections": [
+            {
+              "name": ""
+            }
+          ],
+          "variant": "split"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "orange",
+          "foregroundColor": "#ffffff",
+          "icon": "bolt",
+          "text": "Set!",
+          "variant": "custom"
+        },
+        "update": {
+          "code": "\nconst password = prompt(\"Enter password:\", \"\");\nif (password !== \"iplon321\") {\n  notifyError([\"Error\", \"Incorrect password. Update not allowed.\"]);\n  return;\n}\n\nconst body = {};\noptions.elements.forEach((element) => {\n  if (!options.update.updatedOnly) {\n    body[element.id] = element.value;\n    return;\n  }\n\n  /**\n   * Skip not updated elements\n   */\n  if (element.value === initial[element.id]) {\n    return;\n  }\n  body[element.id] = element.value;\n});\n\n/**\n * Set URL\n */\n\nconst url = `http://192.168.84.86:5000/scaback0001/setprop?id=13098&val=${body[\"val\"]}`;\nconsole.log(\"Updated URL:\", url);\n/**\n * Fetch\n */\nfetch(url, {\n  method: \"POST\",\n  /*headers: {\n    \"Content-Type\": \"application/json\",\n    \"PRIVATE-TOKEN\": \"$token\",\n  },\n  body: JSON.stringify(body),*/\n\n})\n  .then((response) => {\n    if (response && response.ok) {\n      notifySuccess([\"Update\", \"Values updated successfully.\"]);\n      initialRequest();\n    } else {\n      notifyError([\n        \"Error\",\n        `An error occurred updating values: ${response ? response.status : 'Unknown'}`,\n      ]);\n    }\n  })\n  .catch((error) => {\n    console.error(error);\n    notifyError([\"Error\", \"An error occurred during the request.\"]);\n  });\n",
+          "confirm": false,
+          "contentType": "application/json",
+          "method": "-",
+          "updatedOnly": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "z6HMoi6Vk"
+          },
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "type": "volkovlabs-form-panel"
+    }
+  ],
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Open",
+          "value": "Open"
+        },
+        "description": "Open and Close",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Mode",
+        "multi": false,
+        "name": "type",
+        "options": [
+          {
+            "selected": false,
+            "text": "Close",
+            "value": "Close"
+          },
+          {
+            "selected": true,
+            "text": "Open",
+            "value": "Open"
+          }
+        ],
+        "query": "Close,Open",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now/d"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Open_Loop Power Control",
+  "uid": "smv9UqC4z1",
+  "version": 22,
+  "weekStart": ""
+}
